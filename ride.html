@@ -45,6 +45,17 @@
         <div id="weatherData"></div>
     </div>
 
+    <div id="main">
+        <!-- Unicorn Customization Controls -->
+        <div id="unicornCustomization">
+            <label for="unicornColor">Unicorn Color:</label>
+            <input type="text" id="unicornColor" placeholder="Enter color">
+
+            <label for="unicornName">Unicorn Name:</label>
+            <input type="text" id="unicornName" placeholder="Enter name">
+             <button id="customizeUnicorn" class="btn btn-primary">Customize Unicorn</button>
+        </div>
+
     <div class="info panel panel-default">
         <div class="panel-heading">
             <button id="request" class="btn btn-primary" disabled="disabled">Set pickup</button>
@@ -145,6 +156,21 @@
             getUserLocation();
         });
     </script>
+        <!-- Additional script for handling unicorn customization in ride.js -->
+    <script>
+        // Function to customize the unicorn when the "Customize Unicorn" button is clicked
+        function customizeUnicorn() {
+            const unicornColor = document.getElementById('unicornColor').value;
+            const unicornName = document.getElementById('unicornName').value;
+            
+            // Call your customization function in ride.js
+            customizeUnicornInRideJS(unicornColor, unicornName);
+        }
+
+        // Attach the event listener to the "Customize Unicorn" button
+        document.getElementById('customizeUnicorn').addEventListener('click', customizeUnicorn);
+    </script>
+
     
 </body>
 
