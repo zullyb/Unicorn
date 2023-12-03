@@ -215,24 +215,7 @@ function getUserLocation() {
     }
 }
 
-// Function to get weather information
-function getWeather(latitude, longitude) {
-    const apiKey = 'd3e3c021a0c5d75f7ef6664595778b41';
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
-
-    // Make an API call to OpenWeatherMap
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            const weatherData = `Temperature: ${data.main.temp}°C, Description: ${data.weather[0].description}`;
-            document.getElementById('weatherData').innerText = weatherData;
-        })
-        .catch(error => {
-            console.error('Error fetching weather data:', error);
-        });
-}
-
-// Function to initialize the map
+// Function to get weather information using Tomorrow.io API
 function getWeather(latitude, longitude) {
     const apiKey = 'kg5iaHQfKRGzDDDP9brfBNxGpzzKyaV6';
     const apiUrl = `https://api.tomorrow.io/v4/weather/forecast?location=${latitude},${longitude}&apikey=${apiKey}`;
@@ -246,13 +229,22 @@ function getWeather(latitude, longitude) {
             console.log('Weather Data:', data);
 
             // Assuming Tomorrow.io response structure, adjust accordingly
-            const weatherData = `Temperature: ${data?.data?.timelines[0]?.intervals[0]?.values?.temperature}°C, Description: ${data?.data?.timelines[0]?.intervals[0]?.values?.weatherCode}`;
-            document.getElementById('weatherData').innerText = weatherData;
+            const temperature = data?.data?.timelines[0]?.intervals[0]?.values?.temperature;
+            const description = data?.data?.timelines[0]?.intervals[0]?.values?.weatherCode;
+
+            // Update the weather widget with the obtained data
+            updateWeatherWidget(temperature, description);
         })
         .catch(error => {
             console.error('Error fetching weather data:', error);
         });
 }
 
+// Function to update the weather widget with obtained data
+function updateWeatherWidget(temperature, description) {
+    // Assuming you have an element with the id 'weatherData' to display the weather information
+    const weatherDataElement = document.getElementById('weatherData');
 
-
+    // Display the temperature and description in the weather widget
+    weatherDataElement.innerHTML = `Temperature: ${temperature}°C, Description: ${description}`;
+}
