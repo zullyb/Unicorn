@@ -55,7 +55,8 @@ let map;
 
         console.log(pickupLocation);
         //  get the local weather, find nearby restaurants, movies
-        // getWeather(pickupLocation, unicorn)
+        getWeather(pickupLocation.latitude, pickupLocation.longitude);
+
 
         animateArrival(function animateCallback() {
             displayUpdate(unicorn.Name + ' has arrived. Giddy up!', unicorn.Color);
