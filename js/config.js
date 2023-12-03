@@ -6,5 +6,7 @@ window._config = {
     },
     api: {
         invokeUrl:          'https://ldhc6itvyf.execute-api.us-east-1.amazonaws.com/dev'          // e.g. https://rc7nyt4tql.execute-api.us-west-2.amazonaws.com/prod',
+        development: 'https://mh7wcwfjf0.execute-api.us-east-1.amazonaws.com/develop',
+        production: 'https://ldhc6itvyf.execute-api.us-east-1.amazonaws.com/prod'
     }
 };
