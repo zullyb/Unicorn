@@ -12,23 +12,24 @@
     <meta name="author" content="">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">-->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
           integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
           crossorigin=""/>
     <link rel="stylesheet" href="/css/ride.css">
     <link rel="stylesheet" href="/css/message.css">
-      <!-- Styles for weather widget -->
+    <!-- Styles for weather widget -->
     <style>
         .weather-widget {
             position: absolute;
             top: 10px;
             left: 10px;
             padding: 10px;
-            background-color: #fff;
+            background-color: #849DAB;
             border: 1px solid #ccc;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
         }
 
         .weather-widget h3 {
@@ -39,15 +40,14 @@
 </head>
 
 <body>
-    <!-- 
-    Weather Widget to the botton 
-     <div id="weatherButtonContainer" class="weather-button-container">
-        <!-- Weather Widget 
+    <!-- Weather Widget to the bottom -->
+    <div id="weatherButtonContainer" class="weather-button-container">
+        <!-- Weather Widget -->
         <div id="weatherWidget" class="weather-widget">
             <h3>Weather Information</h3>
             <div id="weatherData"></div>
         </div>
-    -->
+    </div>
 
     <div id="main">
         <!-- Unicorn Customization Controls -->
@@ -59,64 +59,53 @@
             <input type="text" id="unicornName" placeholder="Enter name">
              <button id="customizeUnicorn" class="btn btn-primary">Customize Unicorn</button>
         </div>
-        <!-- weather -->
-        <div id="weatherButtonContainer" class="weather-button-container">
-            <!-- Weather Widget -->
-            <div id="weatherWidget" class="weather-widget">
-                <h3>Weather Information</h3>
-                <div id="weatherData"></div>
-            </div>
-        </div>
 
-
-    <div class="info panel panel-default">
-        <div class="panel-heading">
-            <button id="request" class="btn btn-primary" disabled="disabled">Set pickup</button>
-            <div class="dropdown pull-right">
-                <button id="accountLink" class="btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Account <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="accountLink">
-                    <li><a id="signOut" href="#">Sign out</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="panel-body">
-            <ol id="updates">
-                <li>Welcome! Click the map to set your pickup location.</li>
-            </ol>
-        </div>
-    </div>
-
-    <div id="noApiMessage" class="configMessage" style="display: none;">
-        <div class="backdrop"></div>
-        <div class="panel panel-default">
+        <div class="info panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">Successfully Authenticated!</h3>
+                <button id="request" class="btn btn-primary" disabled="disabled">Set pickup</button>
+                <div class="dropdown pull-right">
+                    <button id="accountLink" class="btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Account <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="accountLink">
+                        <li><a id="signOut" href="#">Sign out</a></li>
+                    </ul>
+                </div>
             </div>
             <div class="panel-body">
-                <p>This page is not functional yet because there is no API invoke URL configured in <a href="/js/config.js">/js/config.js</a>. You'll configure this in Module 3.</p>
-                <p>In the meantime, if you'd like to test the Amazon Cognito user pool authorizer for your API, use the auth token below:</p>
-                <textarea class="authToken"></textarea>
+                <ol id="updates">
+                    <li>Welcome! Click the map to set your pickup location.</li>
+                </ol>
             </div>
         </div>
-    </div>
 
-    <div id="noCognitoMessage" class="configMessage" style="display: none;">
-        <div class="backdrop"></div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">No Cognito User Pool Configured</h3>
-            </div>
-            <div class="panel-body">
-                <p>There is no user pool configured in <a href="/js/config.js">/js/config.js</a>. You'll configure this in Module 2 of the workshop.</p>
+        <div id="noApiMessage" class="configMessage" style="display: none;">
+            <div class="backdrop"></div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Successfully Authenticated!</h3>
+                </div>
+                <div class="panel-body">
+                    <p>This page is not functional yet because there is no API invoke URL configured in <a href="/js/config.js">/js/config.js</a>. You'll configure this in Module 3.</p>
+                    <p>In the meantime, if you'd like to test the Amazon Cognito user pool authorizer for your API, use the auth token below:</p>
+                    <textarea class="authToken"></textarea>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="main">
-        <div id="map">
+        <div id="noCognitoMessage" class="configMessage" style="display: none;">
+            <div class="backdrop"></div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">No Cognito User Pool Configured</h3>
+                </div>
+                <div class="panel-body">
+                    <p>There is no user pool configured in <a href="/js/config.js">/js/config.js</a>. You'll configure this in Module 2 of the workshop.</p>
+                </div>
+            </div>
         </div>
+
+        <div id="map"></div>
     </div>
 
     <div id="authTokenModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="authToken">
@@ -140,7 +129,7 @@
     <script src="js/vendor/bootstrap.min.js"></script>
     <script src="js/vendor/aws-cognito-sdk.min.js"></script>
     <script src="js/vendor/amazon-cognito-identity.min.js"></script>
-    <script src="https://js.arcgis.com/4.6/"></script>-->
+    <script src="https://js.arcgis.com/4.6/"></script>
     <script src="js/config.js"></script>
     <script src="js/cognito-auth.js"></script>
     <script src="js/esri-map.js"></script>
@@ -151,7 +140,6 @@
     <!-- ElfSight Weather Widget -->
     <script src="https://static.elfsight.com/platform/platform.js" data-use-service-core defer></script>
    <div class="elfsight-app-82640b37-8dab-46b4-8526-10f09437c46d" data-elfsight-app-lazy></div>
-
 
     <!-- Additional script for updating the weather widget in ride.js -->
     <script>
@@ -169,7 +157,8 @@
             getUserLocation();
         });
     </script>
-        <!-- Additional script for handling unicorn customization in ride.js -->
+    
+    <!-- Additional script for handling unicorn customization in ride.js -->
     <script>
         // Function to customize the unicorn when the "Customize Unicorn" button is clicked
         function customizeUnicorn() {
@@ -184,7 +173,6 @@
         document.getElementById('customizeUnicorn').addEventListener('click', customizeUnicorn);
     </script>
 
-    
 </body>
 
 </html>
