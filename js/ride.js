@@ -166,7 +166,16 @@ let map;
 
         WildRydes.map.animate(origin, dest, callback);
     }
-
+// Function to customize the unicorn
+//added cutom unicorn
+function customizeUnicornInRideJS(unicornColor, unicornName) {
+    // You can customize the unicorn here using the provided color and name
+    // For example, update the unicorn's color and name in the UI
+    const unicornElement = document.getElementById('unicorn');
+    if (unicornElement) {
+        unicornElement.style.backgroundColor = unicornColor;
+        unicornElement.innerHTML = `<p>${unicornName}</p>`;
+    }
 
 }(jQuery));
 
