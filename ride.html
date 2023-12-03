@@ -18,14 +18,32 @@
           crossorigin=""/>
     <link rel="stylesheet" href="/css/ride.css">
     <link rel="stylesheet" href="/css/message.css">
+      <!-- Styles for weather widget -->
+    <style>
+        .weather-widget {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .weather-widget h3 {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Added weather widget -->
-<div id="weatherWidget" class="weather-widget">
-    <h3>Weather Information</h3>
-    <div id="weatherData"></div>
-</div>
+    <!-- Weather Widget -->
+    <div id="weatherWidget" class="weather-widget">
+        <h3>Weather Information</h3>
+        <div id="weatherData"></div>
+    </div>
 
     <div class="info panel panel-default">
         <div class="panel-heading">
@@ -106,6 +124,23 @@
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
             integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
             crossorigin=""></script>
+     <!-- Additional script for updating the weather widget in ride.js -->
+    <script>
+        // Function to update the weather widget with obtained data
+        function updateWeatherWidget(temperature, description) {
+            const weatherDataElement = document.getElementById('weatherData');
+            weatherDataElement.innerHTML = `Temperature: ${temperature}°C, Description: ${description}`;
+        }
+    </script>
+
+    <!-- Initialize the map and weather widget when the page has finished loading -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            initMap();
+            getUserLocation();
+        });
+    </script>
+    
 </body>
 
 </html>
