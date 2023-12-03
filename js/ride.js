@@ -178,4 +178,73 @@ let map;
 function displayUpdate(text, color='green') {
     $('#updates').prepend($(`<li style="background-color:${color}">${text}</li>`));
 }
+// Function to get the user's location
+function getUserLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const userLatitude = position.coords.latitude;
+                const userLongitude = position.coords.longitude;
+
+                // Call getWeather function with user's location
+                getWeather(userLatitude, userLongitude);
+
+                // Optionally, center the map at the user's location
+                yourMapVariable.setView([userLatitude, userLongitude], yourInitialZoomLevel);
+
+                // Add a marker at the user's location (optional)
+                const userMarker = L.marker([userLatitude, userLongitude]).addTo(yourMapVariable);
+                userMarker.bindPopup('Your Location').openPopup();
+            },
+            error => {
+                console.error('Error getting user location:', error);
+
+                // Optionally, provide a default location if the user's location cannot be obtained
+                const defaultLatitude = YOUR_DEFAULT_LATITUDE;
+                const defaultLongitude = YOUR_DEFAULT_LONGITUDE;
+
+                // Call getWeather function with default location
+                getWeather(defaultLatitude, defaultLongitude);
+
+                // Optionally, center the map at the default location
+                yourMapVariable.setView([defaultLatitude, defaultLongitude], yourInitialZoomLevel);
+            }
+        );
+    } else {
+        console.error('Geolocation is not supported by your browser');
+    }
+}
+
+// Function to get weather information
+function getWeather(latitude, longitude) {
+    const apiKey = 'f6bf9e320d1ce83d2c68190fc84b621d';
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+
+    // Make an API call to OpenWeatherMap
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            const weatherData = `Temperature: ${data.main.temp}°C, Description: ${data.weather[0].description}`;
+            document.getElementById('weatherData').innerText = weatherData;
+        })
+        .catch(error => {
+            console.error('Error fetching weather data:', error);
+        });
+}
+
+// Function to initialize the map
+function initMap() {
+    // Your existing map initialization logic...
+
+    // Call getUserLocation function after initializing your map
+    getUserLocation();
+}
+
+// Call initMap function when the page has finished loading
+document.addEventListener('DOMContentLoaded', () => {
+    initMap();
+
+    // Optionally, add additional code here if needed
+});
+
 
