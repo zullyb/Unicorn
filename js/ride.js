@@ -233,18 +233,26 @@ function getWeather(latitude, longitude) {
 }
 
 // Function to initialize the map
-function initMap() {
-    // Your existing map initialization logic...
+function getWeather(latitude, longitude) {
+    const apiKey = 'kg5iaHQfKRGzDDDP9brfBNxGpzzKyaV6';
+    const apiUrl = `https://api.tomorrow.io/v4/weather/forecast?location=${latitude},${longitude}&apikey=${apiKey}`;
 
-    // Call getUserLocation function after initializing your map
-    getUserLocation();
+    console.log('API URL:', apiUrl);
+
+    // Make an API call to Tomorrow.io
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            console.log('Weather Data:', data);
+
+            // Assuming Tomorrow.io response structure, adjust accordingly
+            const weatherData = `Temperature: ${data?.data?.timelines[0]?.intervals[0]?.values?.temperature}°C, Description: ${data?.data?.timelines[0]?.intervals[0]?.values?.weatherCode}`;
+            document.getElementById('weatherData').innerText = weatherData;
+        })
+        .catch(error => {
+            console.error('Error fetching weather data:', error);
+        });
 }
 
-// Call initMap function when the page has finished loading
-document.addEventListener('DOMContentLoaded', () => {
-    initMap();
-
-    // Optionally, add additional code here if needed
-});
 
 
