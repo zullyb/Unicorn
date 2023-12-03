@@ -217,7 +217,7 @@ function getUserLocation() {
 
 // Function to get weather information
 function getWeather(latitude, longitude) {
-    const apiKey = 'f6bf9e320d1ce83d2c68190fc84b621d';
+    const apiKey = 'd3e3c021a0c5d75f7ef6664595778b41';
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
 
     // Make an API call to OpenWeatherMap
